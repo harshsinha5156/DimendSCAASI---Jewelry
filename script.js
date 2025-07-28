@@ -69,7 +69,7 @@
                 }
             ];
             
-           
+             
             rings.forEach((ring, index) => {
                 const ringElement = document.createElement('div');
                 ringElement.className = 'ring-item absolute rounded-full overflow-hidden cursor-pointer';
@@ -236,4 +236,9 @@
                 });
             }
         });
+
+
+        // --------------------------------
+
+        
     
