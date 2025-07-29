@@ -1,166 +1,184 @@
-// // Basic JavaScript for any future interactivity.
-// // For now, it just logs a message to the console.
-// document.addEventListener('DOMContentLoaded', () => {
-//     console.log('DimendsCAASI website loaded!');
-
-//     // Example of a simple interactive element (if needed later)
-//     const viewDetailsButton = document.querySelector('.vintage-card-img button');
-//     if (viewDetailsButton) {
-//         viewDetailsButton.addEventListener('click', () => {
-//             showCustomAlert('View Details clicked!');
-//         });
-//     }
-// });
-
-// // Add a simple alert replacement function if needed
-// function showCustomAlert(message) {
-//     // In a real application, replace this with a custom modal or message box UI.
-//     // For this example, we'll use a simple console log as alerts are discouraged.
-//     console.log("Custom Alert:", message);
-//     // You would typically create a div, style it, append to body, and show the message.
-//     // Example:
-//     /*
-//     const alertBox = document.createElement('div');
-//     alertBox.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid #ccc; box-shadow: 0 0 10px rgba(0,0,0,0.1); z-index: 1000;';
-//     alertBox.innerHTML = `<p>${message}</p><button onclick="this.parentNode.remove()">OK</button>`;
-//     document.body.appendChild(alertBox);
-//     */
-// }
 
 
-// ==============================================================
-
-    
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu-button').addEventListener('click', function() {
-            document.querySelector('.mobile-menu').classList.toggle('active');
+            // Toggle mobile menu
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenuClose = document.querySelector('.mobile-menu-close');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', function() {
+            mobileMenu.classList.add('active');
+        });
+        
+        mobileMenuClose.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
         });
 
-       
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('DimendsCAASI website loaded!');
 
-           
-            const carousel = document.getElementById('ring-carousel');
-            const ringInfo = document.getElementById('ring-info');
-            
-            
-            const rings = [
-                {
-                    name: "Vintage",
-                    price: "$3800",
-                    offer: "Limited edition vintage piece",
-                    code: "VINTAGE10",
-                    image: "./images/ring1.jpg"
-                },
-                {
-                    name: "Vintage Antique", 
-                    price: "$4500",
-                    offer: "Take 20% off for a limited time.",
-                    code: "LOVE20",
-                    image: "./images/ring2.jpg"
-                },
-                {
-                    name: "Antique",
-                    price: "$5200",
-                    offer: "Free engraving on antique pieces",
-                    code: "ANTIQUE15",
-                    image: "./images/ring5.jpg"
-                }
-            ];
-            
-             
-            rings.forEach((ring, index) => {
-                const ringElement = document.createElement('div');
-                ringElement.className = 'ring-item absolute rounded-full overflow-hidden cursor-pointer';
-                ringElement.dataset.index = index;
-                ringElement.style.backgroundImage = `url('${ring.image}')`;
-                ringElement.onclick = function() { rotateToIndex(index); };
-                carousel.appendChild(ringElement);
-            });
-            
-            // Initial positioning
-            let currentIndex = 1;
-            positionRings(currentIndex);
-            updateDisplay(currentIndex);
-            
-            function positionRings(centerIndex) {
-                const ringItems = document.querySelectorAll('.ring-item');
-                const container = carousel.getBoundingClientRect();
-                const centerX = container.width / 2;
-                const centerY = container.height / 2;
+       
+       document.addEventListener('DOMContentLoaded', () => {
+    console.log('DimendsCAASI website loaded!');
+
+    const carousel = document.getElementById('ring-carousel');
+    const ringInfo = document.getElementById('ring-info');
+    
+    // Create the overlay element
+    const nameOverlay = document.createElement('div');
+    nameOverlay.className = 'ring-name-overlay';
+    carousel.appendChild(nameOverlay);
+    
+    const rings = [
+        {
+            name: "Vintage",
+            price: "$3800",
+            offer: "Limited edition vintage piece",
+            code: "VINTAGE10",
+            image: "./images/image10.png"
+        },
+        {
+            name: "Vintage Antique", 
+            price: "$4500",
+            offer: "Take 20% off for a limited time.",
+            code: "LOVE20",
+            image: "./images/ring11.png"
+        },
+        {
+            name: "Antique",
+            price: "$5200",
+            offer: "Free engraving on antique pieces",
+            code: "ANTIQUE15",
+            image: "./images/ring16.jpg"
+        }
+    ];
+    
+    rings.forEach((ring, index) => {
+        const ringElement = document.createElement('div');
+        ringElement.className = 'ring-item absolute rounded-full overflow-hidden cursor-pointer';
+        ringElement.dataset.index = index;
+        ringElement.style.backgroundImage = `url('${ring.image}')`;
+        ringElement.onclick = function() { 
+            rotateToIndex(index);
+            resetAutoScroll(); 
+        };
+        carousel.appendChild(ringElement);
+    });
+    
+    
+    let currentIndex = 1;
+    positionRings(currentIndex);
+    updateDisplay(currentIndex);
+    
+    // Auto-scroll variables
+    let autoScrollInterval;
+    const SCROLL_INTERVAL = 5000; 
+    
+    // Start auto-scroll
+    startAutoScroll();
+    
+    function positionRings(centerIndex) {
+        const ringItems = document.querySelectorAll('.ring-item');
+        const container = carousel.getBoundingClientRect();
+        const centerX = container.width / 2;
+        const centerY = container.height / 2;
+        const isMobile = window.innerWidth < 768;
+
+        ringItems.forEach((item, index) => {
+            if (index === centerIndex) {
+              
+                item.style.width = isMobile ? '70%' : '20%';
+                item.style.height = isMobile ? '50%' : '60%';
+                item.style.left = `${centerX}px`;
+                item.style.top = isMobile ? `${centerY * 0.70}px` : `${centerY * 0.6}px`;
+                item.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                item.style.opacity = '1';
+                item.style.zIndex = '30';
+                item.style.border = isMobile ? '1px solid rgba(255, 255, 255, 0.3)' : '2px solid rgba(255, 255, 255, 0.3)';
+                item.classList.add('center-ring');
                 
-                ringItems.forEach((item, index) => {
-                    if (index === centerIndex) {
-                        // Center item (main position)
-                        item.style.width = '50%';
-                        item.style.height = '50%';
-                        item.style.left = `${centerX}px`;
-                        item.style.top = `${centerY * 0.5}px`;
-                        item.style.transform = 'translate(-50%, -50%) scale(1.1)';
-                        item.style.opacity = '1';
-                        item.style.zIndex = '30';
-                        item.style.border = '2px solid rgba(255, 255, 255, 0.3)';
-                        item.classList.add('center-ring');
-                    } else {
-                        item.classList.remove('center-ring');
-                        if (index === (centerIndex + 1) % ringItems.length) {
-                            // Right item
-                            item.style.width = '40%';
-                            item.style.height = '40%';
-                            item.style.left = `${container.width * 0.9}px`;
-                            item.style.top = `${container.height * 0.7}px`;
-                            item.style.transform = 'translate(-50%, -50%) scale(0.9)';
-                            item.style.opacity = '0.8';
-                            item.style.zIndex = '20';
-                            item.style.border = '1px solid rgba(255, 255, 255, 0.2)';
-                        } else {
-                            // Left item
-                            item.style.width = '40%';
-                            item.style.height = '40%';
-                            item.style.left = `${container.width * 0.1}px`;
-                            item.style.top = `${container.height * 0.7}px`;
-                            item.style.transform = 'translate(-50%, -50%) scale(0.9)';
-                            item.style.opacity = '0.8';
-                            item.style.zIndex = '20';
-                            item.style.border = '1px solid rgba(255, 255, 255, 0.2)';
-                        }
-                    }
-                });
+                // Position the overlay text
+                nameOverlay.style.display = 'block';
+                nameOverlay.textContent = rings[index].name.toUpperCase();
+            } else {
+                item.classList.remove('center-ring');
+                const isRightItem = index === (centerIndex + 1) % ringItems.length;
+                
+                // Mobile side items adjustments
+                item.style.width = isMobile ? '40%' : '16%';
+                item.style.height = isMobile ? '28%' : '30%';
+                item.style.left = isMobile 
+                    ? `${container.width * (isRightItem ? 0.8 : 0.2)}px`
+                    : `${container.width * (isRightItem ? 0.9 : 0.1)}px`;
+                item.style.top = isMobile 
+                    ? `${container.height * 0.60}px`
+                    : `${container.height * 0.6}px`;
+                item.style.transform = 'translate(-50%, -50%) scale(0.9)';
+                item.style.opacity = '0.8';
+                item.style.zIndex = '20';
+                item.style.border = '1px solid rgba(255, 255, 255, 0.2)';
             }
-            
-            function rotateToIndex(targetIndex) {
-                if (targetIndex === currentIndex) return;
-                
-                // Add smooth transition
-                document.querySelectorAll('.ring-item').forEach(item => {
-                    item.style.transition = 'all 0.7s cubic-bezier(0.33, 1, 0.68, 1)';
-                });
-                
-                // Reposition rings
-                positionRings(targetIndex);
-                
-                // Update display with fade effect
-                ringInfo.style.opacity = '0';
-                
-                setTimeout(() => {
-                    currentIndex = targetIndex;
-                    updateDisplay(targetIndex);
-                    ringInfo.style.opacity = '1';
-                }, 300);
-            }
-            
-            function updateDisplay(index) {
-                const ring = rings[index];
-                document.getElementById('ring-price').textContent = ring.price;
-                document.getElementById('ring-offer').textContent = ring.offer;
-                document.getElementById('ring-code').innerHTML = `Use Code: <span class="text-yellow-600">${ring.code}</span>`;
-                document.getElementById('small-ring-name').textContent = ring.name.toUpperCase();
-            }
-            
-            window.addEventListener('resize', function() {
-                positionRings(currentIndex);
-            });
+        });
+    }
+    
+    function rotateToIndex(targetIndex) {
+        if (targetIndex === currentIndex) return;
+        
+       
+        document.querySelectorAll('.ring-item').forEach(item => {
+            item.style.transition = 'all 0.7s cubic-bezier(0.33, 1, 0.68, 1)';
+        });
+        
+       
+        nameOverlay.style.opacity = '0';
+        
+      
+        positionRings(targetIndex);
+        
+        // Update display with fade effect
+        ringInfo.style.opacity = '0';
+        
+        setTimeout(() => {
+            currentIndex = targetIndex;
+            updateDisplay(targetIndex);
+            ringInfo.style.opacity = '1';
+            nameOverlay.style.opacity = '1';
+        }, 300);
+    }
+    
+    function updateDisplay(index) {
+        const ring = rings[index];
+        document.getElementById('ring-price').textContent = ring.price;
+        document.getElementById('ring-offer').textContent = ring.offer;
+        document.getElementById('ring-code').innerHTML = `Use Code: <span class="text-yellow-600">${ring.code}</span>`;
+        document.getElementById('small-ring-name').textContent = ring.name.toUpperCase();
+    }
+    
+    
+    function startAutoScroll() {
+        autoScrollInterval = setInterval(() => {
+            const nextIndex = (currentIndex + 1) % rings.length;
+            rotateToIndex(nextIndex);
+        }, SCROLL_INTERVAL);
+    }
+    
+    function resetAutoScroll() {
+        clearInterval(autoScrollInterval);
+        startAutoScroll();
+    }
+    
+    
+    carousel.addEventListener('mouseenter', () => {
+        clearInterval(autoScrollInterval);
+    });
+    
+    // Resume auto-scroll when mouse leaves
+    carousel.addEventListener('mouseleave', () => {
+        resetAutoScroll();
+    });
+    
+    window.addEventListener('resize', function() {
+        positionRings(currentIndex);
+    });
+
+    // ======================================================================================================
 
             // Diamond Slider
             const sliderTrack = document.getElementById('sliderTrack');
@@ -238,7 +256,13 @@
         });
 
 
-        // --------------------------------
+
+
+    
+        
+
+
+    
 
         
     

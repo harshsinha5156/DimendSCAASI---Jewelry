@@ -1,5 +1,426 @@
+        .ring-name-overlay {
+        position: absolute;
+        top: 28%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 7vw;
+        font-weight: 900;
+        color: transparent; /* Make text transparent */
+       
+        white-space: nowrap;
+        pointer-events: none;
+        z-index: 35;
+        letter-spacing: 0.3rem;
+        /* Text background clip effect */
+        background-clip: text;
+        -webkit-background-clip: text;
+      
+        -webkit-text-fill-color: transparent;
+        /* Subtle text outline */
+        text-shadow: 
+            1px 1px 1px rgba(0,0,0,0.1),
+            -1px -1px 1px rgba(0,0,0,0.1);
+        /* Blend with image */
+        mix-blend-mode: multiply;
+        opacity: 0.8;
+    }
+
+    .center-ring {
+        position: relative;
+    }
+
+    .center-ring::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: inherit;
+        filter: brightness(1.1) contrast(0.9);
+        z-index: 34;
+        pointer-events: none;
+        opacity: 0;
+    }
+
+
+
+    * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        header {
+            background-color: white;
+            padding: 1rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Logo styles */
+        .logo {
+            font-size: 1.5rem;
+            color: black;
+        }
+        
+        .logo span {
+            font-weight: 800;
+        }
+        
+        /* Mobile menu button */
+        .mobile-menu-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        /* Desktop navigation */
+        .desktop-nav {
+            display: none;
+        }
+        
+        .desktop-nav ul {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+        
+        .desktop-nav a {
+            color: black;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .desktop-nav a:hover {
+            color: #666;
+        }
+        
+        /* Navigation icons */
+        .nav-icons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .nav-icons a {
+            color: black;
+            font-size: 1.25rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-icons a:hover {
+            color: #666;
+        }
+        
+        /* Secondary row */
+        .secondary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+        
+        .secondary-row a {
+            color: black;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s;
+        }
+        
+        .secondary-row a:hover {
+            color: #666;
+        }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            display: none;
+            background-color: white;
+            padding: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            border-radius: 0 0 0.5rem 0.5rem;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .mobile-menu a {
+            color: black;
+            text-decoration: none;
+            display: block;
+            transition: color 0.3s;
+        }
+        
+        .mobile-menu a:hover {
+            color: #666;
+        }
+        
+        .mobile-menu-header {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+        }
+        
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .mobile-secondary-links {
+            padding-top: 1rem;
+        }
+        
+        .mobile-secondary-links a {
+            font-size: 0.875rem;
+        }
+        
+        /* Mobile layout */
+        @media (max-width: 767px) {
+            .main-row {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .logo-container {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                order: 2;
+            }
+            
+            .mobile-menu-button-container {
+                position: absolute;
+                left: 1.5rem;
+                top: 1rem;
+            }
+            
+            .nav-icons-container {
+                position: absolute;
+                right: 1.5rem;
+                top: 1rem;
+            }
+            
+            .desktop-nav {
+                display: none !important;
+            }
+            
+            .secondary-row {
+                display: none;
+            }
+        }
+        
+        /* Desktop layout */
+        @media (min-width: 768px) {
+            .main-row {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .logo-container {
+                flex: 0 0 auto;
+            }
+            
+            .nav-content {
+                display: flex;
+                align-items: center;
+                flex: 1;
+            }
+            
+            .desktop-nav {
+                display: block;
+                flex: 1;
+            }
+            
+            .desktop-nav ul {
+                justify-content: center;
+            }
+            
+            .mobile-menu-button {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: none !important;
+            }
+            
+            .secondary-row {
+                display: flex;
+            }
+        }
+
+        /* Hide heart icon on mobile */
+@media (max-width: 767px) {
+    .nav-icons a:nth-child(2) {  /* This targets the second icon (heart) */
+        display: none;
+    }
+}
+
+
+/* Hide heart icon on mobile */
+@media (max-width: 767px) {
+    .heart-icon {
+        display: none;
+    }
+}
+
+        /* ------------------------------------------ */
+
+         /* Glowing text effect */
+    /* Glowing text effect */
+.glowing-text {
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 5px rgba(255, 215, 0, 0.5); }
+    to { text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.6); }
+}
+
+/* Text shadow for large name */
+.text-shadow-lg {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Ring item styling */
+.ring-item {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    transition: all 0.7s cubic-bezier(0.33, 1, 0.68, 1);
+    border-radius: 50%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.center-ring {
+    z-index: 30;
+    opacity: 1;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 767px) {
+    #ring-carousel-section {
+        min-height: 80vh;
+        padding-top: 20px;
+         position: relative; /* Add this to contain absolute positioned children */
+        overflow: visible;
+    }
+    
+    #large-ring-name {
+        font-size: 2.2rem;
+        top: 15%;
+    }
+    
+    #ring-info {
+        position: absolute;
+    width: 100%;
+    text-align: center;
+    z-index: 40; /* Ensure it appears above other elements */
+    pointer-events: auto; /* Make sure it's clickable */
+     bottom: 5%; /* Adjust this value as needed */
+        left: 0;
+        right: 0;
+        padding: 0 15px;
+        transform: none; /* Remove translate if it's causing issues */
+}
+    
+    .ring-info {
+        transform: translate(-50%, 0);
+    }
+    
+    /* Mobile-specific ring sizing */
+    .ring-item {
+        background-size: 90% auto;
+    }
+    
+    .center-ring {
+        border-width: 1px;
+    }
+}
+
+
+
+
+
+
+
+        /* ------------------- */
+         @media (max-width: 640px) {
+        /* Adjust text sizes for mobile */
+        .text-3xl {
+            font-size: 1.5rem;
+            line-height: 2rem;
+        }
+        
+        .text-lg {
+            font-size: 1rem;
+            line-height: 1.5rem;
+        }
+        
+        /* Ensure grid takes full width */
+        .max-w-7xl {
+            max-width: 100%;
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+        
+        /* Reduce padding on mobile */
+        section {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+    }
+
+    /* -------------------------------------- */
+
+     /* Mobile-specific adjustments */
+    @media (max-width: 1023px) {
+        .keep-in-touch {
+            flex-direction: column;
+        }
+        
+        .text-center {
+            text-align: center !important;
+        }
+        
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
 
        
+
+
+
         :root {
             --color-gold: #d4af37;
             --color-gold-dark: #c09a2f;
@@ -335,3 +756,75 @@
             }
         }
     
+
+       
+
+        /* Add these media queries to your existing CSS */
+
+/* Tablet/iPad Portrait (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    #ring-carousel-section {
+        min-height: 70vh;
+    }
+    
+    .ring-item {
+        /* Adjust ring item sizing for tablets */
+        width: 180px !important;
+        height: 180px !important;
+        background-size: contain !important;
+    }
+    
+    .center-ring {
+        /* Center ring adjustments */
+        width: 220px !important;
+        height: 220px !important;
+    }
+    
+    #large-ring-name {
+        /* Adjust name positioning */
+        font-size: 5vw;
+        top: 25%;
+    }
+    
+    #ring-info {
+        /* Adjust info positioning */
+        bottom: 10%;
+        padding: 0 2rem;
+    }
+}
+
+/* Tablet/iPad Landscape (1024px and up, but smaller than desktop) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    #ring-carousel-section {
+        height: 75vh;
+    }
+    
+    .ring-item {
+        /* Slightly larger rings for landscape */
+        width: 200px !important;
+        height: 200px !important;
+    }
+    
+    .center-ring {
+        width: 240px !important;
+        height: 240px !important;
+    }
+    
+    #large-ring-name {
+        font-size: 4.5vw;
+    }
+}
+
+/* Additional adjustments for the ring overlay */
+.ring-name-overlay {
+    /* Make this more responsive */
+    font-size: min(7vw, 80px);
+}
+
+/* Ensure center ring maintains aspect ratio */
+.center-ring {
+    aspect-ratio: 1/1;
+    width: 100%;
+    max-width: 300px; /* Adjust as needed */
+    max-height: 300px; /* Adjust as needed */
+}
