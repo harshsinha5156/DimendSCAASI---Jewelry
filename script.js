@@ -32,21 +32,21 @@
             price: "$3800",
             offer: "Limited edition vintage piece",
             code: "VINTAGE10",
-            image: "./images/image10.png"
+            image: "./images/compress image10.webp"
         },
         {
             name: "Vintage Antique", 
             price: "$4500",
             offer: "Take 20% off for a limited time.",
             code: "LOVE20",
-            image: "./images/ring11.png"
+            image: "./images/compress ring11.webp"
         },
         {
             name: "Antique",
             price: "$5200",
             offer: "Free engraving on antique pieces",
             code: "ANTIQUE15",
-            image: "./images/ring16.jpg"
+            image: "./images/compress ring16.webp"
         }
     ];
     
